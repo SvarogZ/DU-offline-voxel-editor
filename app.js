@@ -1,12 +1,8 @@
+// constants
 const EPSILON = 1e-6;
 
-const canvas = document.getElementById('canvas');
-const ctx = canvas.getContext('2d');
 
-//ctx.fillStyle = "blue";
-//ctx.font = '48px serif';
-//ctx.fillText('Hello world', 10, 50);
-
+// classes
 class Vector {
 	constructor(x, y, z) {
 		//this.name = Vector.name;
@@ -243,9 +239,52 @@ class Basis {
 	}
 }
 
+
+// global variables
+const mouse = {
+	pos: {x: 0, y: 0},
+	down: false
+};
+
+const canvas = document.getElementById('canvas');
+const ctx = canvas.getContext('2d');
+
+canvas.addEventListener('mousemove', function (evt) {
+    mouse.pos = getMousePos(canvas, evt);
+}, false);
+
+canvas.addEventListener('mousedown', function () {
+   mouse.down = true;
+}, false);
+
+canvas.addEventListener('mouseup', function () {
+   mouse.down = false;
+}, false);
+
 const isometricBasis = new Basis(new Vector(1,0,0),new Vector(0,1,0),new Vector(0,0,1));
+
+const vox1 = new Voxel(
+	new Vector(-1,-1,-1),// v1
+	new Vector(1.8,-1,-1),// v2
+	new Vector(1,1,-1),// v3
+	new Vector(-1,1,-1),// v4
+	new Vector(-1,-1,1),// v5
+	new Vector(1,-1,1),// v6
+	new Vector(1,1,1),// v7
+	new Vector(-1,1,1),// v8
+	new Vector(0,0,0)// pos
+);
+
+///////////////////////////////////////////////////////
+/////////TEST START////////////////////////////////////
+///////////////////////////////////////////////////////
+
 isometricBasis.rotate(0.3, new Vector(-1,1,1));
 
+
+function testDraw(ctx) {
+	console.log('mouse '+mouse.pos.x+' : '+mouse.pos.y+' down:'+mouse.down);
+}
 
 /*
 const vec1 = new Vector(3,4,5);
@@ -261,20 +300,50 @@ console.log('dist='+vec1.dist(vec2));
 console.log('test='+proj.normalize().len());
 //*/
 
+///////////////////////////////////////////////////////
+/////////TEST END//////////////////////////////////////
+///////////////////////////////////////////////////////
 
-const vox1 = new Voxel(
-	new Vector(-1,-1,-1),// v1
-	new Vector(1.8,-1,-1),// v2
-	new Vector(1,1,-1),// v3
-	new Vector(-1,1,-1),// v4
-	new Vector(-1,-1,1),// v5
-	new Vector(1,-1,1),// v6
-	new Vector(1,1,1),// v7
-	new Vector(-1,1,1),// v8
-	new Vector(0,0,0)// pos
-);
 
-//console.log('vox1='+vox1.pos.x);
+//-- animation--
+const requestAnimationFrame = window.requestAnimationFrame || window.mozRequestAnimationFrame || window.webkitRequestAnimationFrame || window.msRequestAnimationFrame;
+let previousTimestamp = performance.now();
+requestAnimationFrame(step);
+
+
+//-- support functions--
+function getMousePos(ctx, evt) {
+    const rect = ctx.getBoundingClientRect();
+    return {
+        x: evt.clientX - rect.left,
+        y: evt.clientY - rect.top
+    };
+}
+
+function step(timestamp) {
+	const deltaTime = timestamp - previousTimestamp;
+	draw(timestamp,deltaTime);
+    previousTimestamp = timestamp
+    requestAnimationFrame(step);
+}
+
+function draw(timestamp,deltaTime) {
+	canvas.width = 0.95 * (window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth);
+	canvas.height = 0.95 * (window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight);
+	
+	const quarterWidth = canvas.height / 4;
+	
+	ctx.clearRect(0, 0, canvas.width, canvas.height);
+	
+	testDraw(ctx);
+	
+	// function drawVoxel(ctx, voxel, shift = new Vector(0,0,0), view = 'front', scale = 64)
+	
+	drawVoxel(ctx, vox1, new Vector(quarterWidth,quarterWidth,0), 'front', quarterWidth / 2);
+	drawVoxel(ctx, vox1, new Vector(3*quarterWidth,quarterWidth,0), 'right', quarterWidth / 2);
+	drawVoxel(ctx, vox1, new Vector(quarterWidth,3*quarterWidth,0), 'top', quarterWidth / 2);
+	drawVoxel(ctx, vox1, new Vector(3*quarterWidth,3*quarterWidth,0), 'isometric', quarterWidth / 2);
+}
 
 function drawVoxel(ctx, voxel, shift = new Vector(0,0,0), view = 'front', scale = 64) {
 	const plane = new Vector(0,0,1);
@@ -347,33 +416,3 @@ function drawVoxel(ctx, voxel, shift = new Vector(0,0,0), view = 'front', scale 
 	}
 	
 }
-
-function draw(timestamp,deltaTime) {
-	canvas.width = 0.95 * (window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth);
-	canvas.height = 0.95 * (window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight);
-	
-	const quarterWidth = canvas.height / 4;
-	
-	ctx.clearRect(0, 0, canvas.width, canvas.height);
-	
-	// function drawVoxel(ctx, voxel, shift = new Vector(0,0,0), view = 'front', scale = 64)
-	
-	drawVoxel(ctx, vox1, new Vector(quarterWidth,quarterWidth,0), 'front', quarterWidth / 2);
-	drawVoxel(ctx, vox1, new Vector(3*quarterWidth,quarterWidth,0), 'right', quarterWidth / 2);
-	drawVoxel(ctx, vox1, new Vector(quarterWidth,3*quarterWidth,0), 'top', quarterWidth / 2);
-	drawVoxel(ctx, vox1, new Vector(3*quarterWidth,3*quarterWidth,0), 'isometric', quarterWidth / 2);
-}
-
-//-- animation--
-const requestAnimationFrame = window.requestAnimationFrame || window.mozRequestAnimationFrame || window.webkitRequestAnimationFrame || window.msRequestAnimationFrame;
-
-let previousTimestamp = performance.now();
-
-function step(timestamp) {
-	const deltaTime = timestamp - previousTimestamp;
-	draw(timestamp,deltaTime);
-    previousTimestamp = timestamp
-    requestAnimationFrame(step);
-}
-
-requestAnimationFrame(step);
