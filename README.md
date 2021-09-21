@@ -1,1 +1,1 @@
-# DU-offline-voxel-editor
+# DU offline voxel editor
