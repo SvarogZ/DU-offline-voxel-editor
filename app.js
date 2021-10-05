@@ -439,7 +439,8 @@ class Basis {
 const mouse = {
 	pos: {x: 0, y: 0},
 	previousPos: {x: 0, y: 0},
-	down: false
+	isMoving: false,
+	isDown: false
 };
 
 const canvas = document.getElementById('canvas');
@@ -451,14 +452,15 @@ canvas.height = 600;
 canvas.addEventListener('mousemove', function (evt) {
 	mouse.previousPos = mouse.pos;
     mouse.pos = getMousePos(canvas, evt);
+	mouse.isMoving = true;
 }, false);
 
 canvas.addEventListener('mousedown', function () {
-   mouse.down = true;
+   mouse.isDown = true;
 }, false);
 
 canvas.addEventListener('mouseup', function () {
-   mouse.down = false;
+   mouse.isDown = false;
 }, false);
 
 const isometricBasis = new Basis(new Vector(1,0,0),new Vector(0,1,0),new Vector(0,0,1));
@@ -483,7 +485,7 @@ isometricBasis.rotate(0.3, new Vector(-1,1,1));
 
 
 function testDraw(ctx) {
-	console.log('mouse '+mouse.pos.x+' : '+mouse.pos.y+' down:'+mouse.down);
+	//console.log('mouse '+mouse.pos.x+' : '+mouse.pos.y+' down:'+mouse.isDown);
 }
 
 /*
@@ -656,8 +658,9 @@ function updateVoxel(voxel) {
 }
 
 function rotateBasis(basis) {
-	if (mouse.down) {
+	if (mouse.isDown && mouse.isMoving) {
 		basis.rotate((mouse.pos.x - mouse.previousPos.x)/100, new Vector(0,1,0));
 		basis.rotate((mouse.pos.y - mouse.previousPos.y)/100, new Vector(-1,0,0));
 	}
+	mouse.isMoving = false;
 }
