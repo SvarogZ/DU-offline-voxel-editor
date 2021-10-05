@@ -1,5 +1,323 @@
+<!DOCTYPE HTML>
 <html>
-<canvas id="canvas" style="border:1px solid black"></canvas>
-<script src="app.js"></script>
-<noscript>Sorry, your browser does not support JavaScript!</noscript>
+	<head>
+		<meta charset="utf-8">
+		<title>Galaxy generator</title>
+	</head>
+	<body>
+		<table>
+			<tr border="1px">
+				<td rowspan=3>
+					Vertex1:
+				</td>
+				<td>
+					X
+				</td>
+				<td>
+					<input id="v1_x_text" type="text" value="0" disabled>
+				</td>
+				<td>
+					<input id="v1_x_slider" type="range" min="-24" max="24" value="0">
+				</td>
+				<td rowspan=24>
+					<canvas id="canvas" style="border:1px solid black"></canvas>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					Y
+				</td>
+				<td>
+					<input id="v1_y_text" type="text" value="0" disabled>
+				</td>
+				<td>
+					<input id="v1_y_slider" type="range" min="-24" max="24" value="0">
+				</td>
+			</tr>
+			<tr>
+				<td>
+					Z
+				</td>
+				<td>
+					<input id="v1_z_text" type="text" value="0" disabled>
+				</td>
+				<td>
+					<input id="v1_z_slider" type="range" min="-24" max="24" value="0">
+				</td>
+			</tr>
+			
+			<tr>
+				<td rowspan=3>
+					Vertex2:
+				</td>
+				<td>
+					X
+				</td>
+				<td>
+					<input id="v2_x_text" type="text" value="0" disabled>
+				</td>
+				<td>
+					<input id="v2_x_slider" type="range" min="-24" max="24" value="0">
+				</td>
+			</tr>
+			<tr>
+				<td>
+					Y
+				</td>
+				<td>
+					<input id="v2_y_text" type="text" value="0" disabled>
+				</td>
+				<td>
+					<input id="v2_y_slider" type="range" min="-24" max="24" value="0">
+				</td>
+			</tr>
+			<tr>
+				<td>
+					Z
+				</td>
+				<td>
+					<input id="v2_z_text" type="text" value="0" disabled>
+				</td>
+				<td>
+					<input id="v2_z_slider" type="range" min="-24" max="24" value="0">
+				</td>
+			</tr>
+			
+			<tr>
+				<td rowspan=3>
+					Vertex3:
+				</td>
+				<td>
+					X
+				</td>
+				<td>
+					<input id="v3_x_text" type="text" value="0" disabled>
+				</td>
+				<td>
+					<input id="v3_x_slider" type="range" min="-24" max="24" value="0">
+				</td>
+			</tr>
+			<tr>
+				<td>
+					Y
+				</td>
+				<td>
+					<input id="v3_y_text" type="text" value="0" disabled>
+				</td>
+				<td>
+					<input id="v3_y_slider" type="range" min="-24" max="24" value="0">
+				</td>
+			</tr>
+			<tr>
+				<td>
+					Z
+				</td>
+				<td>
+					<input id="v3_z_text" type="text" value="0" disabled>
+				</td>
+				<td>
+					<input id="v3_z_slider" type="range" min="-24" max="24" value="0">
+				</td>
+			</tr>
+			
+			<tr>
+				<td rowspan=3>
+					Vertex4:
+				</td>
+				<td>
+					X
+				</td>
+				<td>
+					<input id="v4_x_text" type="text" value="0" disabled>
+				</td>
+				<td>
+					<input id="v4_x_slider" type="range" min="-24" max="24" value="0">
+				</td>
+			</tr>
+			<tr>
+				<td>
+					Y
+				</td>
+				<td>
+					<input id="v4_y_text" type="text" value="0" disabled>
+				</td>
+				<td>
+					<input id="v4_y_slider" type="range" min="-24" max="24" value="0">
+				</td>
+			</tr>
+			<tr>
+				<td>
+					Z
+				</td>
+				<td>
+					<input id="v4_z_text" type="text" value="0" disabled>
+				</td>
+				<td>
+					<input id="v4_z_slider" type="range" min="-24" max="24" value="0">
+				</td>
+			</tr>
+			
+			<tr>
+				<td rowspan=3>
+					Vertex5:
+				</td>
+				<td>
+					X
+				</td>
+				<td>
+					<input id="v5_x_text" type="text" value="0" disabled>
+				</td>
+				<td>
+					<input id="v5_x_slider" type="range" min="-24" max="24" value="0">
+				</td>
+			</tr>
+			<tr>
+				<td>
+					Y
+				</td>
+				<td>
+					<input id="v5_y_text" type="text" value="0" disabled>
+				</td>
+				<td>
+					<input id="v5_y_slider" type="range" min="-24" max="24" value="0">
+				</td>
+			</tr>
+			<tr>
+				<td>
+					Z
+				</td>
+				<td>
+					<input id="v5_z_text" type="text" value="0" disabled>
+				</td>
+				<td>
+					<input id="v5_z_slider" type="range" min="-24" max="24" value="0">
+				</td>
+			</tr>
+			
+			<tr>
+				<td rowspan=3>
+					Vertex6:
+				</td>
+				<td>
+					X
+				</td>
+				<td>
+					<input id="v6_x_text" type="text" value="0" disabled>
+				</td>
+				<td>
+					<input id="v6_x_slider" type="range" min="-24" max="24" value="0">
+				</td>
+			</tr>
+			<tr>
+				<td>
+					Y
+				</td>
+				<td>
+					<input id="v6_y_text" type="text" value="0" disabled>
+				</td>
+				<td>
+					<input id="v6_y_slider" type="range" min="-24" max="24" value="0">
+				</td>
+			</tr>
+			<tr>
+				<td>
+					Z
+				</td>
+				<td>
+					<input id="v6_z_text" type="text" value="0" disabled>
+				</td>
+				<td>
+					<input id="v6_z_slider" type="range" min="-24" max="24" value="0">
+				</td>
+			</tr>
+			
+			<tr>
+				<td rowspan=3>
+					Vertex7:
+				</td>
+				<td>
+					X
+				</td>
+				<td>
+					<input id="v7_x_text" type="text" value="0" disabled>
+				</td>
+				<td>
+					<input id="v7_x_slider" type="range" min="-24" max="24" value="0">
+				</td>
+			</tr>
+			<tr>
+				<td>
+					Y
+				</td>
+				<td>
+					<input id="v7_y_text" type="text" value="0" disabled>
+				</td>
+				<td>
+					<input id="v7_y_slider" type="range" min="-24" max="24" value="0">
+				</td>
+			</tr>
+			<tr>
+				<td>
+					Z
+				</td>
+				<td>
+					<input id="v7_z_text" type="text" value="0" disabled>
+				</td>
+				<td>
+					<input id="v7_z_slider" type="range" min="-24" max="24" value="0">
+				</td>
+			</tr>
+			
+			<tr>
+				<td rowspan=3>
+					Vertex8:
+				</td>
+				<td>
+					X
+				</td>
+				<td>
+					<input id="v8_x_text" type="text" value="0" disabled>
+				</td>
+				<td>
+					<input id="v8_x_slider" type="range" min="-24" max="24" value="0">
+				</td>
+			</tr>
+			<tr>
+				<td>
+					Y
+				</td>
+				<td>
+					<input id="v8_y_text" type="text" value="0" disabled>
+				</td>
+				<td>
+					<input id="v8_y_slider" type="range" min="-24" max="24" value="0">
+				</td>
+			</tr>
+			<tr>
+				<td>
+					Z
+				</td>
+				<td>
+					<input id="v8_z_text" type="text" value="0" disabled>
+				</td>
+				<td>
+					<input id="v8_z_slider" type="range" min="-24" max="24" value="0">
+				</td>
+			</tr>
+			
+			<tr>
+				<td>
+					<input type="button" value="Reset" onclick="reset()">
+				</td>
+				<td id="result" colspan="2">
+				</td>
+			</tr>
+		</table>
+			
+		<noscript>
+			You need to enable JavaScript to run this app.
+		</noscript>
+		
+		<script src="app.js"></script>
+	</body>
 </html>
